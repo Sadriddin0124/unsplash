@@ -1,0 +1,62 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
+  scroll-behavior: smooth;
+}
+
+%flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+%flex-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.cooltones {
+    width: 100%;
+    @extend %flex-col;
+}
+
+.cooltones__header{
+    width: 100%;
+    min-height: 80vh;
+    background: url("../../assets//cooltones.avif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 30px;
+    @extend %flex-center;
+    justify-content: start;
+    padding-left: 10%;
+}
+
+.cooltones__item {
+    max-width: 600px;
+    color: white;
+    @extend %flex-col;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.cooltones__title {
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.cooltones__subtitle{
+    font-size: 18px;
+}
+
+.cooltones__btn{
+    padding: 8px 16px;
+    background: white;
+    color: black;
+    border-radius: 5px;
+}

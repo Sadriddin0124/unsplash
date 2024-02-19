@@ -1,0 +1,147 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
+  scroll-behavior: smooth;
+}
+
+%flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+%flex-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.pictures {
+  width: 100%;
+  @extend %flex-center;
+  padding: 40px 20px;
+}
+
+.pictures__cards {
+  width: 100%;
+  @extend %flex-center;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+  .div {
+    max-width: 800px;
+    width: 100%;
+    @extend %flex-col;
+    gap: 20px;
+    flex: 1;
+  }
+}
+
+.pictures__card {
+  min-height: 100px;
+}
+
+.picture__card-top {
+  width: 100%;
+  position: absolute;
+  padding: 20px;
+  top: 0;
+  opacity: 0;
+  z-index: 2;
+  height: 100%;
+  @extend %flex-col;
+  justify-content: space-between;
+  cursor: zoom-in;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.449), transparent, rgba(0, 0, 0, 0.449));
+  .card_item {
+    width: 100%;
+    @extend %flex-center;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}
+.picture__card-top:hover {
+  opacity: 1;
+}
+
+.pictures__btn {
+  opacity: .8;
+}
+
+.pictures__btn:hover{
+  opacity: 1;
+}
+
+.download__btn {
+  padding: 10px 15px;
+  p{
+    display: none;
+  }
+}
+
+@media (max-width: 990px){
+  .pictures__cards{
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+}
+@media (max-width: 768px){
+  .pictures__cards{
+    display: grid;
+    grid-template-columns: auto ;
+  }
+  .pictures{
+    padding: 40px 0;
+  }
+  .picture__card-top{
+    .card_item {
+      position: absolute;
+      bottom: -50px;
+      padding-left: 15px;
+      p{
+        display: none;
+      }
+    }
+  }
+  .download__btn {
+    position: absolute;
+    right: 15px;
+    bottom: -50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #767676;
+    padding: 5px 11px;
+    color: #767676;
+    p{
+      display: block;
+    }
+    .download__icon {
+      border-left: 1px solid #76767651;
+      padding-left: 10px;
+      color: #767676;
+      width: 25px;
+      height: 100%;
+    }
+  }
+  .picture__card-top{
+    opacity: 1;
+  }
+  .pictures__card{
+    margin-bottom: 120px;
+  }
+  .pictures__btn{
+    opacity: 1;
+    border: 1px solid #76767651;
+  }
+  .profile__img {
+    position: absolute;
+    top: -50px;
+    .text-white{
+      color: black !important;
+    }
+  }
+}
