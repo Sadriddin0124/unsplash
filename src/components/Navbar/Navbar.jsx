@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Logo from "../../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineMenu } from "react-icons/md";
 import "./Navbar.scss";
 import { IoSearch } from "react-icons/io5";
@@ -13,46 +13,42 @@ import User from "../../assets/user.avif"
 const Navbar = () => {
   const [searchValue, setSearchValue] = useState("")
   const {search, getPicturesSearch} = useEditorialStore()
-  useEffect(()=>{
+  const navigate = useNavigate()
+  const url = window.location.href.split("/").pop()
+    useEffect(()=>{
+      if (url === "search") {
+        let value = localStorage.getItem("search")
+        setSearchValue(value)
+        console.log(value);
+      }else {
+        setSearchValue("")
+      }
     getPicturesSearch()
   },[])
   const navRef = useRef();
   const [navbarLink, setNavbarLink] = useState([
-    { id: 1, text: "Cool Tones",path: "/cooltones", search: "cooltone" },
-    { id: 2, text: "Wallpaper" },
-    { id: 3, text: "Nature" },
-    { id: 4, text: "3D Renders" },
-    { id: 5, text: "Travel" },
-    { id: 6, text: "Architecture & Interiors" },
-    { id: 7, text: "Textures & Patterns" },
-    { id: 8, text: "Street Photography" },
-    { id: 9, text: "Film" },
-    { id: 10, text: "Experimental" },
-    { id: 11, text: "Animals" },
-    { id: 12, text: "Fashion & Beauty" },
-    { id: 13, text: "People" },
-    { id: 14, text: "Spirituality" },
-    { id: 15, text: "Business & Work" },
-    { id: 16, text: "Food & Drink" },
-    { id: 17, text: "Health & Wellness" },
-    { id: 18, text: "Sports" },
-    { id: 19, text: "Current Events" },
+    { id: 1, text: "Cool Tones",path: "/cooltones", search: "cooltones" },
+    { id: 2, text: "Wallpaper", search: "wallpaper" },
+    { id: 3, text: "Nature", search: "nature" },
+    { id: 4, text: "3D Renders", search: "3drenders" },
+    { id: 5, text: "Travel", search: "travel" },
+    { id: 6, text: "Architecture & Interiors", search: "architecture" },
+    { id: 7, text: "Textures & Patterns", search: "textures" },
+    { id: 8, text: "Street Photography", search: "streetphotography" },
+    { id: 9, text: "Film", search: "film" },
+    { id: 10, text: "Experimental", search: "experimental" },
+    { id: 11, text: "Animals", search: "animals" },
+    { id: 12, text: "Fashion & Beauty", search: "fashion" },
+    { id: 13, text: "People", search: "people" },
+    { id: 14, text: "Spirituality", search: "spirituality" },
+    { id: 15, text: "Business & Work", search: "business" },
+    { id: 16, text: "Food & Drink", search: "fooddrink" },
+    { id: 17, text: "Health & Wellness", search: "health" },
+    { id: 18, text: "Sports", search: "sports" },
+    { id: 19, text: "Current Events", search: "current events" },
   ]);
-  const [activeLink, setActiveLink] = useState(0.1);
   const handleNav = (scrollAmount) => {
     navRef.current.scrollLeft += scrollAmount;
-  };
-  useEffect(() => {
-    let id = +localStorage.getItem("link__id")
-    if(id){
-      setActiveLink(id)
-    }else{
-      setActiveLink(.1)
-    }
-  },[]);
-  const LinkActive = (item) => {
-    setActiveLink(item.id);
-    localStorage.setItem("link__id", item.id)
   };
   const [activeREsult, setActiveResult] = useState(false)
   const searchImage =(e)=> {
@@ -67,7 +63,8 @@ const Navbar = () => {
   const searchAll =(e)=> {
     e.preventDefault()
     getPicturesSearch(searchValue)
-
+    navigate("/search")
+    setActiveResult(false)
   }
   return (
     <nav className="navbar fixed bg-white">
@@ -82,7 +79,7 @@ const Navbar = () => {
           <button type="submit">
           <IoSearch className="search__icon cursor-pointer"  />
           </button>
-          <input  onChange={searchImage} type="text" placeholder="Search high-resolution images" />
+          <input  onChange={searchImage} value={searchValue} type="text" placeholder="Search high-resolution images" />
           <MdOutlineControlCamera className="control__icon cursor-pointer" />
           <div className={` ${activeREsult ? "search__results" : "hidden"}`}>
             {
@@ -120,13 +117,13 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-      <div className="navbar__bottom">
+      <div className={`${url === "search" ? "hidden" : "flex"} navbar__bottom`}>
         <ul className="flex ml-[20px] gap-[20px] navbar__bottom-left">
-          <li onClick={() => LinkActive({id: 0.1, search: "all"})}>
+          <li >
             <Link
             to='/'
               className={`navbar__link  ${
-                activeLink === 0.1
+                url === ""
                   ? "border-b-[3px] border-b-[black] pb-[15px] text-black"
                   : ""
               }`}
@@ -134,10 +131,10 @@ const Navbar = () => {
               Editorial
             </Link>
           </li>
-          <li onClick={() => LinkActive({id: 0.2})}>
+          <li>
             <Link
               className={`navbar__link  ${
-                activeLink === 0.2
+                url === "following"
                   ? "border-b-[3px] border-b-[black] pb-[15px] text-black"
                   : ""
               }`}
@@ -145,10 +142,10 @@ const Navbar = () => {
               Following
             </Link>
           </li>
-          <li onClick={() => LinkActive({id: 0.3})}>
+          <li>
             <Link
               className={`navbar__link  ${
-                activeLink === 0.3
+                url === "unsplash+"
                   ? "border-b-[3px] border-b-[black] pb-[15px] xl:pb-[13px] text-black"
                   : ""
               }`}
@@ -169,7 +166,7 @@ const Navbar = () => {
             return (
               <li onClick={()=>LinkActive(item)} key={index} className="bottom__list-item relative">
                 <span className={`absolute top-[-13px] text-[10px] text-[#767676] ${index === 0 ? "block" : "hidden"}`}>Featured</span>
-                <Link to={item.path} className={`bottom__link pb-[10px] border-b-[3px] ${activeLink === item.id ? "border-b-[3px] border-[black] pb-[10px] text-black" : "border-[transparent]"}`}>{item.text}</Link>
+                <Link to={item.path} className={`bottom__link pb-[10px] border-b-[3px] ${url === item.search ? "border-b-[3px] border-[black] pb-[10px] text-black" : "border-[transparent]"}`}>{item.text}</Link>
               </li>
             );
           })}

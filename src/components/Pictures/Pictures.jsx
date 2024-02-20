@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Pictures.scss";
 import { FaHeart } from "react-icons/fa";
 import { FaArrowDown, FaPlus } from "react-icons/fa6";
+import SinglePicture from "../SinglePicture/SinglePicture";
 
 const Pictures = ({photos}) => {
   let num = photos.length;
@@ -31,8 +32,15 @@ const Pictures = ({photos}) => {
         console.error('Error downloading the image: ', error);
       });
   }
+  const [propIndex, setPropIndex] = useState(0)
+  const [singlePictureStatus, setSinglePictureStatus] = useState(false)
+  const singlePhoto =(index)=> {
+    setPropIndex(index)
+    setSinglePictureStatus(true)
+  }
   return (
     <div className="pictures">
+      <SinglePicture index={propIndex} photos={photos} setSinglePictureStatus={setSinglePictureStatus} singlePictureStatus={singlePictureStatus}/>
       <div className="pictures__cards">
         <div className="div">
           {photosFilter1?.map((item, index) => {
@@ -43,7 +51,7 @@ const Pictures = ({photos}) => {
                   alt="pictures"
                   className=" max-w-[100%]"
                 />
-                <div className="picture__card-top">
+                <div className="picture__card-top" onClick={()=>singlePhoto(index)}>
                   <div className="card_item">
                     <p className="text-[14px] text-white">Sponsored</p>
                     <div className="flex gap-[10px]">

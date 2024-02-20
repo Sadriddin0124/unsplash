@@ -144,8 +144,11 @@
 .editorial__img{
   width: 280px;
   height: 280px;
-  @extend %flex-col;
+  @extend %flex-center;
+  padding: 20px;
+  flex-wrap: wrap;
   justify-content: flex-start;
+  gap: 10px;
   div{
     width: 100%;
   }

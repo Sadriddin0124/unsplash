@@ -6,13 +6,7 @@ import CoolTonesStore from "../../store/CoolTonesStore/CoolTonesStore";
 const CoolTones = () => {
   const { getPicturesCoolTones, cooltones} = CoolTonesStore()
   useEffect(() => {
-    const client_id = "client_id=59cegTi0aTgwHxhiFv-oqZqz0pWOaD1R2OwH0OUbVi8";
-    const BASE_URL = "https://api.unsplash.com";
-    axios.get(
-      `${BASE_URL}/search/photos?query=advert&_page=1&per_page=30&${client_id}`
-    ).then(res=> {
-      console.log(res);
-    })
+    
     getPicturesCoolTones()
   }, []);
   return (

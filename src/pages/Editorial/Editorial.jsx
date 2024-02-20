@@ -1,18 +1,42 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Editorial.scss";
 import { FaSquarespace } from "react-icons/fa6";
 import { IoSearch } from "react-icons/io5";
 import { MdOutlineControlCamera } from "react-icons/md";
 import useEditorialStore from "../../store/EditorialStore/EditorialStore";
 import Pictures from "../../components/Pictures/Pictures";
-import Collections from "../../assets/collections.avif"
+import { FaArrowTrendUp } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const Editorial = () => {
-  const {collections, getCollections, photos, getPicturesEditorial} = useEditorialStore()
+  const navigate = useNavigate()
+  const {collections, getCollections, photos, getPicturesEditorial, getPicturesSearch} = useEditorialStore()
   useEffect(()=> {
     getCollections("collections")
     getPicturesEditorial()
   },[])
+  const [searchValue, setSearchValue] = useState("")
+  const searchImage =(e)=> {
+    e.preventDefault()
+    setSearchValue(e.target[0].value)
+    getPicturesSearch(e.target[0].value)
+    navigate("/search")
+    localStorage.setItem("search", e.target[0].value)
+  }
+  const [trendingSearches, setTtrendingSearches] = useState([
+    {id: 1, title: "car"},
+    {id: 2, title: "rain"},
+    {id: 3, title: "snow"},
+    {id: 4, title: "nature"},
+    {id: 5, title: "forest"},
+    {id: 6, title: "flowers"},
+  ])
+  const QuickSearch =(title)=> {
+    getPicturesSearch(title)
+    setSearchValue(title)
+      navigate("/search")
+    localStorage.setItem("search", title)
+  }
   return (
     <div className="editorial__container mt-[120px]">
       <header className="editorial__header">
@@ -28,11 +52,11 @@ const Editorial = () => {
               <h2>SquareSpace</h2>
             </div>
           </div>
-          <div className="editorial__search">
+          <form onSubmit={searchImage} className="editorial__search">
             <IoSearch className="editorial__icon" />
-            <input type="text" placeholder="Search high-resolution images" />
+            <input value={searchValue} onChange={(e)=>setSearchValue(e.target.value)} type="text" placeholder="Search high-resolution images" />
             <MdOutlineControlCamera className="control__icon cursor-pointer" />
-          </div>
+          </form>
         </div>
         <div className="editorial__right">
           <div className="collections">
@@ -54,14 +78,18 @@ const Editorial = () => {
               }
               </div>
           </div>
-          <div className="editorial__img rounded-md overflow-hidden bg-black cursor-pointer">
-            <div className="h-[100%] text-white p-[20px] flex flex-col justify-between">
-              <h3 className="text-[12px] font-[700]">Discover Unsplash+</h3>
-              <h2 className="text-[18px] font-[600]">Unlimited downloads.</h2>
-              <h2 className="text-[18px] font-[600]">Full legal Protections.</h2>
-              <h2 className="text-[18px] font-[600]">No ads.</h2>
+          <div className="editorial__img rounded-xl overflow-hidden border-[1px] cursor-pointer ">
+            {
+              trendingSearches?.map((item,index)=> {
+                return <button onClick={()=>QuickSearch(item.title)} key={index} className="border-[1px] px-[15px] py-[5px] rounded-lg">
+                  {item?.title}
+                </button>
+              })
+            }
+            <div className="flex gap-[10px] items-center">
+            <FaArrowTrendUp/>
+            <p className=" underline">See trending searches</p>
             </div>
-            <img src={Collections} alt="collections" className="w-[100%] h-[156px]"/>
           </div>
         </div>
       </header>
