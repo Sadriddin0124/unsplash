@@ -2,7 +2,9 @@ import React, { useEffect } from "react";
 import Pictures from "../../components/Pictures/Pictures";
 import axios from "axios";
 import "./CoolTones.scss"
+import CoolTonesStore from "../../store/CoolTonesStore/CoolTonesStore";
 const CoolTones = () => {
+  const { getPicturesCoolTones, cooltones} = CoolTonesStore()
   useEffect(() => {
     const client_id = "client_id=59cegTi0aTgwHxhiFv-oqZqz0pWOaD1R2OwH0OUbVi8";
     const BASE_URL = "https://api.unsplash.com";
@@ -11,6 +13,7 @@ const CoolTones = () => {
     ).then(res=> {
       console.log(res);
     })
+    getPicturesCoolTones()
   }, []);
   return (
     <div className="cooltones">
@@ -21,7 +24,7 @@ const CoolTones = () => {
           <button className="cooltones__btn">Submit to <span className="font-[500]">Cool Tones</span></button>
         </div>
       </header>
-      <Pictures />
+      <Pictures photos={cooltones}/>
     </div>
   );
 };

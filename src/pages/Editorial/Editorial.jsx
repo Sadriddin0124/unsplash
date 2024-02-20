@@ -8,9 +8,10 @@ import Pictures from "../../components/Pictures/Pictures";
 import Collections from "../../assets/collections.avif"
 
 const Editorial = () => {
-  const {collections, getCollections} = useEditorialStore()
+  const {collections, getCollections, photos, getPicturesEditorial} = useEditorialStore()
   useEffect(()=> {
     getCollections("collections")
+    getPicturesEditorial()
   },[])
   return (
     <div className="editorial__container mt-[120px]">
@@ -65,7 +66,7 @@ const Editorial = () => {
         </div>
       </header>
       <section>
-        <Pictures/>
+        <Pictures photos={photos}/>
       </section>
     </div>
   );

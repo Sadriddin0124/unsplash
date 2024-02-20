@@ -17,10 +17,10 @@ const useEditorialStore = create((set) => ({
       console.error(err);
     }
   },
-  getPicturesEditorial: async (page) => {
+  getPicturesEditorial: async () => {
     try {
       const res = await axios.get(
-        `${BASE_URL}/photos?query=${page}&_page=1&per_page=30&${client_id}`
+        `${BASE_URL}/photos?query=all&_page=1&per_page=30&${client_id}`
         );
         set({ photos: [...res?.data] });
     } catch (err) {

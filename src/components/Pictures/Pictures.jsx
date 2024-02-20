@@ -1,22 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Pictures.scss";
 import { FaHeart } from "react-icons/fa";
 import { FaArrowDown, FaPlus } from "react-icons/fa6";
-import useEditorialStore from "../../store/EditorialStore/EditorialStore";
 
-const Pictures = () => {
-  const {getPicturesEditorial, photos} = useEditorialStore()
-  useEffect(()=> {
-    getPicturesEditorial()
-  },[])
+const Pictures = ({photos}) => {
   let num = photos.length;
   let length1 = parseInt(num / 3);
   let length2 = parseInt((num / 3) * 2);
-  let editorialfilter1 = photos.filter((item, index) => index < length1);
-  let editorialfilter2 = photos.filter(
+  let photosFilter1 = photos.filter((item, index) => index < length1);
+  let photosFilter2 = photos.filter(
     (item, index) => index < length2 && length1 <= index
   );
-  let editorialfilter3 = photos.filter((item, index) => index >= length2);
+  let photosFilter3 = photos.filter((item, index) => index >= length2);
   const [heartId, setHeartId] = useState("")
   const downloadImage =(item)=> {
     const imageUrl = item.urls.raw
@@ -40,7 +35,7 @@ const Pictures = () => {
     <div className="pictures">
       <div className="pictures__cards">
         <div className="div">
-          {editorialfilter1?.map((item, index) => {
+          {photosFilter1?.map((item, index) => {
             return (
               <div key={index} className="pictures__card relative">
                 <img
@@ -75,7 +70,7 @@ const Pictures = () => {
           })}
         </div>
         <div className="div">
-          {editorialfilter2?.map((item, index) => {
+          {photosFilter2?.map((item, index) => {
             return (
               <div key={index} className="pictures__card relative">
                 <img
@@ -110,7 +105,7 @@ const Pictures = () => {
           })}
         </div>
         <div className="div">
-          {editorialfilter3?.map((item, index) => {
+          {photosFilter3?.map((item, index) => {
             return (
               <div key={index} className="pictures__card relative">
                 <img
