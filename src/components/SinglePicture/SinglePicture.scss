@@ -1,4 +1,3 @@
-//singlePicture
 * {
   padding: 0;
   margin: 0;
@@ -21,41 +20,46 @@
 }
 
 .singlepicture {
-  position: fixed;
+  position: absolute;
   width: 100%;
-  min-height: 100vh;
-  background: #0000006f;
-  z-index: 34;
+  height: 200vh;
   top: 0;
-  @extend %flex-center;
+  @extend %flex-col;
+  justify-content: start;
 }
 
 .single__card {
     padding: 20px;
-position: relative;
+position: fixed;
   margin-top: 20px;
   border-radius: 20px;
   width: 80%;
-  min-height: 100vh;
+  height: 100vh;
   background: white;
   @extend %flex-col;
   gap: 30px;
   justify-content: start;
   overflow-y: scroll;
   scrollbar-width: none;
+  z-index: 23;
+.img {
+    width: 80%;
+}
 }
 
 .slider__btns {
-    position: absolute;
+    top: 50vh;
+    position: fixed;
     width: 100%;
     @extend %flex-center;
     justify-content: space-between;
     padding: 0 5%;
+    z-index: 25;
 }
 
 .prev,.next {
     font-size: 24px;
-    color: gray;
+    color: rgb(212, 208, 208);
     font-weight: 700;
 }
 
@@ -64,8 +68,10 @@ position: relative;
 }
 
 .single_close {
-    position: absolute;
-    left: -10%;
+    position: fixed;
+    z-index: 25;
+    top: 20px;
+    left: 20px;
     font-size: 24px;
     color: aliceblue;
     cursor: pointer;
@@ -75,6 +81,7 @@ position: relative;
 
 .single__card-left {
     @extend %flex-center;
+    gap: 10px;
     p{
         font-size: 12px;
     }
@@ -97,6 +104,7 @@ position: relative;
 
 .single__card-right {
     @extend %flex-center;
+    gap: 10px;
     .right__btn {
         border: 1px solid silver;
         padding:6px 11px;
@@ -114,4 +122,12 @@ position: relative;
         padding: 2px 5px;
         border-right: 1px solid silver;
     }
+}
+
+.blackcurtain {
+    width: 100%;
+    height: 100vh;
+  background: #0000006f;
+  position: fixed;
+  z-index: 22;
 }
