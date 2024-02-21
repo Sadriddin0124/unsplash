@@ -15,7 +15,6 @@ const Pictures = ({photos}) => {
   let photosFilter3 = photos.filter((item, index) => index >= length2);
   const [heartId, setHeartId] = useState("")
   const downloadImage =(item)=> {
-    setSinglePictureStatus(false)
     const imageUrl = item.urls.raw
     console.log(item);
     fetch(imageUrl)
@@ -52,7 +51,7 @@ const Pictures = ({photos}) => {
                   alt="pictures"
                   className=" max-w-[100%]"
                 />
-                <div className="picture__card-top" onClick={()=>singlePhoto(index)}>
+                <div   className={`picture__card-top`} >
                   <div className="card_item">
                     <p className="text-[14px] text-white">Sponsored</p>
                     <div className="flex gap-[10px]">
@@ -64,6 +63,7 @@ const Pictures = ({photos}) => {
                       </button>
                     </div>
                   </div>
+                <div className="single__curtain " onClick={()=>singlePhoto(index)}></div>
                 <div className="w-[100%] flex justify-between items-center ">
                   <div className="flex gap-[5px] items-center profile__img">
                     <img src={item?.user?.profile_image?.small} alt="profile" className="rounded-full" />
@@ -79,7 +79,7 @@ const Pictures = ({photos}) => {
           })}
         </div>
         <div className="div">
-          {photosFilter2?.map((item, index) => {
+        {photosFilter2?.map((item, index) => {
             return (
               <div key={index} className="pictures__card relative">
                 <img
@@ -87,7 +87,7 @@ const Pictures = ({photos}) => {
                   alt="pictures"
                   className=" max-w-[100%]"
                 />
-                <div className="picture__card-top" onClick={()=>singlePhoto(index)}>
+                <div   className={`picture__card-top`} >
                   <div className="card_item">
                     <p className="text-[14px] text-white">Sponsored</p>
                     <div className="flex gap-[10px]">
@@ -99,6 +99,7 @@ const Pictures = ({photos}) => {
                       </button>
                     </div>
                   </div>
+                <div className="single__curtain " onClick={()=>singlePhoto(index)}></div>
                 <div className="w-[100%] flex justify-between items-center ">
                   <div className="flex gap-[5px] items-center profile__img">
                     <img src={item?.user?.profile_image?.small} alt="profile" className="rounded-full" />
@@ -114,7 +115,7 @@ const Pictures = ({photos}) => {
           })}
         </div>
         <div className="div">
-          {photosFilter3?.map((item, index) => {
+        {photosFilter3?.map((item, index) => {
             return (
               <div key={index} className="pictures__card relative">
                 <img
@@ -122,7 +123,7 @@ const Pictures = ({photos}) => {
                   alt="pictures"
                   className=" max-w-[100%]"
                 />
-                <div className="picture__card-top" onClick={()=>singlePhoto(index)}>
+                <div   className={`picture__card-top`} >
                   <div className="card_item">
                     <p className="text-[14px] text-white">Sponsored</p>
                     <div className="flex gap-[10px]">
@@ -134,6 +135,7 @@ const Pictures = ({photos}) => {
                       </button>
                     </div>
                   </div>
+                <div className="single__curtain " onClick={()=>singlePhoto(index)}></div>
                 <div className="w-[100%] flex justify-between items-center ">
                   <div className="flex gap-[5px] items-center profile__img">
                     <img src={item?.user?.profile_image?.small} alt="profile" className="rounded-full" />

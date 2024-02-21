@@ -10,19 +10,11 @@ import { IoIosArrowForward } from "react-icons/io";
 import { ImBell } from "react-icons/im";
 import useEditorialStore from "../../store/EditorialStore/EditorialStore";
 import User from "../../assets/user.avif"
-const Navbar = () => {
-  const [searchValue, setSearchValue] = useState("")
+const Navbar = ({searchValue, setSearchValue}) => {
   const {search, getPicturesSearch} = useEditorialStore()
   const navigate = useNavigate()
   const url = window.location.href.split("/").pop()
     useEffect(()=>{
-      if (url === "search") {
-        let value = localStorage.getItem("search")
-        setSearchValue(value)
-        console.log(value);
-      }else {
-        setSearchValue("")
-      }
     getPicturesSearch()
   },[])
   const navRef = useRef();
@@ -62,7 +54,8 @@ const Navbar = () => {
   }
   const searchAll =(e)=> {
     e.preventDefault()
-    getPicturesSearch(searchValue)
+    getPicturesSearch(e.target[1].value)
+    setSearchValue(e.target[1].value)
     navigate("/search")
     setActiveResult(false)
   }

@@ -8,6 +8,7 @@ import SearchPage from './pages/SearchPage/SearchPage'
 import UnsplashImage from './components/Advertise/Advertise'
 
 const App = () => {
+  const [searchValue, setSearchValue] = useState("")
   useEffect(()=> {
     let result = localStorage.getItem("search")
     if (result === null) {
@@ -17,14 +18,13 @@ const App = () => {
   return (
     <div>
       <div className='h-[122px]'>
-        <Navbar/>
+        <Navbar searchValue={searchValue} setSearchValue={setSearchValue}/>
       </div>
       <div>
         <Routes>
-          <Route path="/" element={<Editorial/>}></Route>
+          <Route path="/" element={<Editorial searchValue={searchValue} setSearchValue={setSearchValue}/>}></Route>
           <Route path="cooltones" element={<CoolTones />}></Route>
-          <Route path="search" element={<SearchPage/>}></Route>
-          <Route path="unsplash" element={<UnsplashImage/>}></Route>
+          <Route path="search" element={<SearchPage searchValue={searchValue}/>}></Route>
         </Routes>
       </div>
     </div>

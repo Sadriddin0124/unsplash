@@ -8,20 +8,18 @@ import Pictures from "../../components/Pictures/Pictures";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
-const Editorial = () => {
+const Editorial = ({searchValue, setSearchValue}) => {
   const navigate = useNavigate()
   const {collections, getCollections, photos, getPicturesEditorial, getPicturesSearch} = useEditorialStore()
   useEffect(()=> {
     getCollections("collections")
     getPicturesEditorial()
   },[])
-  const [searchValue, setSearchValue] = useState("")
   const searchImage =(e)=> {
     e.preventDefault()
     setSearchValue(e.target[0].value)
     getPicturesSearch(e.target[0].value)
     navigate("/search")
-    localStorage.setItem("search", e.target[0].value)
   }
   const [trendingSearches, setTtrendingSearches] = useState([
     {id: 1, title: "car"},
@@ -35,7 +33,6 @@ const Editorial = () => {
     getPicturesSearch(title)
     setSearchValue(title)
       navigate("/search")
-    localStorage.setItem("search", title)
   }
   return (
     <div className="editorial__container mt-[120px]">
@@ -54,7 +51,7 @@ const Editorial = () => {
           </div>
           <form onSubmit={searchImage} className="editorial__search">
             <IoSearch className="editorial__icon" />
-            <input value={searchValue} onChange={(e)=>setSearchValue(e.target.value)} type="text" placeholder="Search high-resolution images" />
+            <input type="text" placeholder="Search high-resolution images" />
             <MdOutlineControlCamera className="control__icon cursor-pointer" />
           </form>
         </div>
