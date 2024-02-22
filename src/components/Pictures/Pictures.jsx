@@ -3,6 +3,7 @@ import "./Pictures.scss";
 import { FaHeart } from "react-icons/fa";
 import { FaArrowDown, FaPlus } from "react-icons/fa6";
 import SinglePicture from "../SinglePicture/SinglePicture";
+import Advertise from "../Advertise/Advertise";
 
 const Pictures = ({photos}) => {
   let num = photos.length;
@@ -43,6 +44,7 @@ const Pictures = ({photos}) => {
       <SinglePicture downloadImage={downloadImage} index={propIndex} setPropIndex={setPropIndex} photos={photos} setSinglePictureStatus={setSinglePictureStatus} singlePictureStatus={singlePictureStatus}/>
       <div className="pictures__cards">
         <div className="div">
+          <Advertise/>
           {photosFilter1?.map((item, index) => {
             return (
               <div key={index} className="pictures__card relative">

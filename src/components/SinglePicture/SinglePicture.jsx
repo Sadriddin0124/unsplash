@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import "./SinglePicture.scss"
 import { IoCloseSharp } from "react-icons/io5";
 import { GrNext, GrPrevious } from "react-icons/gr";
@@ -8,14 +8,19 @@ import SinglePhotos from "./Singlephotos/SinglePhotos";
 
 const SinglePicture = ({index, photos, singlePictureStatus, setSinglePictureStatus, downloadImage, setPropIndex}) => {
     let single = photos[index]
-    console.log(single);
+    const [scroll, setScroll]= useState(0)
+    const scrollRef = useRef()
+    const handleScroll =()=> {
+      const { scrollTop } = scrollRef.current;
+      setScroll(scrollTop)
+    }
   return (
     <div  className={singlePictureStatus ? "singlepicture flex" : "hidden"}>
       <div className="blackcurtain" onClick={()=>setSinglePictureStatus(false)}></div>
         <button onClick={()=>setSinglePictureStatus(false)} className="single_close">
             <IoCloseSharp/>
         </button>
-      <div className="single__card">
+      <div ref={scrollRef} onScroll={handleScroll} className={`single__card ${scroll > 20 ? "z-[50] top-0 transition-all" : "transition-all"}`}>
         <div className="single__card-top">
             <div className="single__card-left">
                 <img src={single?.user?.profile_image?.small} alt={single?.alt__description} />
@@ -37,10 +42,9 @@ const SinglePicture = ({index, photos, singlePictureStatus, setSinglePictureStat
         <SinglePhotos photos={photos} downloadImage={downloadImage}/>
       </div>
       <div className="slider__btns">
-        <button className="prev" disabled={index === 0 ? true : false} onClick={()=>setPropIndex(prev=> prev + 1)}><GrPrevious/></button>
+        <button className="prev" disabled={index === 0 ? true : false} onClick={()=>setPropIndex(prev=> prev - 1)}><GrPrevious/></button>
         <button className="next" onClick={()=>setPropIndex(prev=> prev + 1)}><GrNext/></button>
       </div>
-      
     </div>
   );
 };
