@@ -20,7 +20,7 @@ const SinglePicture = ({index, photos, singlePictureStatus, setSinglePictureStat
         <button onClick={()=>setSinglePictureStatus(false)} className="single_close">
             <IoCloseSharp/>
         </button>
-      <div ref={scrollRef} onScroll={handleScroll} className={`single__card ${scroll > 20 ? "z-[50] top-0 transition-all" : "transition-all"}`}>
+      <div ref={scrollRef} onScroll={handleScroll} className={`single__card ${scroll > 10 ? "z-[50] rounded-none top-0 transition-all" : "transition-all"}`}>
         <div className="single__card-top">
             <div className="single__card-left">
                 <img src={single?.user?.profile_image?.small} alt={single?.alt__description} />
@@ -30,8 +30,10 @@ const SinglePicture = ({index, photos, singlePictureStatus, setSinglePictureStat
                 </div>
             </div>
             <div className="single__card-right">
+                <div className="flex gap-[10px]">
                 <button className="right__btn"><FaHeart/></button>
-                <button className="right__btn"><FaPlus/></button>
+                <button className="right__btn self-start"><FaPlus/></button>
+                </div>
                 <button className="single__download" onClick={()=>downloadImage(single)}>
                     <p>Download</p>
                     <IoIosArrowDown />

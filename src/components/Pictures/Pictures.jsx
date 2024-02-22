@@ -34,14 +34,16 @@ const Pictures = ({photos}) => {
       });
   }
   const [propIndex, setPropIndex] = useState(0)
+  const [pictures, setPictures] = useState([])
   const [singlePictureStatus, setSinglePictureStatus] = useState(false)
-  const singlePhoto =(index)=> {
+  const singlePhoto =(filter, index)=> {
     setPropIndex(index)
+    setPictures(filter)
     setSinglePictureStatus(true)
   }
   return (
     <div className="pictures">
-      <SinglePicture downloadImage={downloadImage} index={propIndex} setPropIndex={setPropIndex} photos={photos} setSinglePictureStatus={setSinglePictureStatus} singlePictureStatus={singlePictureStatus}/>
+      <SinglePicture downloadImage={downloadImage} index={propIndex} setPropIndex={setPropIndex} photos={pictures} setSinglePictureStatus={setSinglePictureStatus} singlePictureStatus={singlePictureStatus}/>
       <div className="pictures__cards">
         <div className="div">
           <Advertise/>
@@ -65,7 +67,7 @@ const Pictures = ({photos}) => {
                       </button>
                     </div>
                   </div>
-                <div className="single__curtain " onClick={()=>singlePhoto(index)}></div>
+                <div className="single__curtain " onClick={()=>singlePhoto(photosFilter1, index)}></div>
                 <div className="w-[100%] flex justify-between items-center ">
                   <div className="flex gap-[5px] items-center profile__img">
                     <img src={item?.user?.profile_image?.small} alt="profile" className="rounded-full" />
@@ -101,7 +103,7 @@ const Pictures = ({photos}) => {
                       </button>
                     </div>
                   </div>
-                <div className="single__curtain " onClick={()=>singlePhoto(index)}></div>
+                <div className="single__curtain " onClick={()=>singlePhoto(photosFilter2, index)}></div>
                 <div className="w-[100%] flex justify-between items-center ">
                   <div className="flex gap-[5px] items-center profile__img">
                     <img src={item?.user?.profile_image?.small} alt="profile" className="rounded-full" />
@@ -116,7 +118,7 @@ const Pictures = ({photos}) => {
             );
           })}
         </div>
-        <div className="div">
+        <div className="last__column">
         {photosFilter3?.map((item, index) => {
             return (
               <div key={index} className="pictures__card relative">
@@ -137,7 +139,7 @@ const Pictures = ({photos}) => {
                       </button>
                     </div>
                   </div>
-                <div className="single__curtain " onClick={()=>singlePhoto(index)}></div>
+                <div className="single__curtain " onClick={()=>singlePhoto(photosFilter3, index)}></div>
                 <div className="w-[100%] flex justify-between items-center ">
                   <div className="flex gap-[5px] items-center profile__img">
                     <img src={item?.user?.profile_image?.small} alt="profile" className="rounded-full" />
